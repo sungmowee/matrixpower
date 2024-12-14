@@ -1,0 +1,32 @@
+def matrix_mult(A, B):
+    #행렬 곱셈 함수
+    temp = [[0] * (len(A)) for _ in range(len(B[0]))]
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            for k in range(len(B[0])):
+                temp[i][k] += A[i][j] * B[j][k]
+    return temp
+
+
+def matrix_pow(A, n):
+    #행렬 분할 정복을 통한 행렬 거듭제곱 계산 함수(이진)
+    if n == 1:
+        return A
+    if n % 2 == 0:
+        temp = matrix_pow(A, n//2)
+        return matrix_mult(temp, temp)
+    else:
+        temp = matrix_pow(A, n-1)
+        return matrix_mult(temp, A)
+
+
+# 예제 테스트
+if __name__ == "__main__":
+    A = [[2, 1,],
+         [1, 3]]
+    k = 5
+    result = matrix_pow(A, k)
+
+    print(f"A^{k}:")
+    for row in result:
+        print(row)
